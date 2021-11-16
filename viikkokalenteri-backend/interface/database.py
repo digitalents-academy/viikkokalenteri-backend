@@ -47,7 +47,7 @@ class Calendar:
         """
         today_exists: bool = self._check_if_today()
 
-        # Create body for calendar entry.
+        # Calendar entry body.
         self.entry_body: dict = {}
         self.entry_body["subject"] = subject
         self.entry_body["owner"] = owner
@@ -56,7 +56,7 @@ class Calendar:
         self.entry_body["location"] = location
         self.entry_body["info"] = info
 
-        # Create entry inside today's document.
+        # Calendar entry.
         self.date_entry: dict = {
                 "$set": {
                     eval(self.date): {

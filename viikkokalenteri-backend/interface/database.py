@@ -37,12 +37,21 @@ class Calendar:
         """
         Helper function for updating today -document.
 
+        Note that this ISN'T used for updating the
+        entry itself -- this just adds a new one.
+
         entry.... The document to make the update to.
         """
         self.days.update_one({}, [entry])
 
     def _create_today(self) -> None:
-        """Helper function for creating today -document."""
+        """
+        Helper function for creating today -document.
+
+        Note that this just creates a new document
+        inside the database -- inside which the
+        calendar entries will then go to.
+        """
         self.days.insert_one({eval(self.date): {"entries": {}}})
 
     def add_entry(self, subject: str, owner: str, date: str, time: str,

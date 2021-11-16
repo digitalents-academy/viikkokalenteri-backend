@@ -54,6 +54,10 @@ class Calendar:
         """
         self.days.insert_one({eval(self.date): {"entries": {}}})
 
+    def _update_entry(self) -> None:
+        """Helper function for updating calendar entry."""
+        pass
+
     def add_entry(self, subject: str, owner: str, date: str, time: str,
                   location: str=None, info: str=None) -> None:
         """

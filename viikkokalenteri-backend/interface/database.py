@@ -76,10 +76,12 @@ class Calendar:
         self.entry_body: dict = {}
         self.entry_body["subject"] = subject
         self.entry_body["owner"] = owner
-        self.entry_body["date"] = date
-        self.entry_body["time"] = time
-        self.entry_body["location"] = location
-        self.entry_body["info"] = info
+        self.entry_body["event_date"] = date
+        self.entry_body["event_time"] = time
+        self.entry_body["event_location"] = location
+        self.entry_body["date_created"] = eval(self.date)
+        self.entry_body["time_created"] = eval(self.time)
+        self.entry_body["description"] = info
 
         # Calendar entry.
         self.date_entry: dict = {
@@ -92,30 +94,40 @@ class Calendar:
                     }
                 }
 
-        if self.today_exists:
-            self.days.update_one({}, [self.date_entry])
+        if today_exists:
+            self._update_today(self.date_entry)
         else:
-            self.days.insert_one({eval(self.date): {"entries": {}}})
-            self.days.update_one({}, [self.date_entry])
+            self._create_today()
+            self._update_today(self.date_entry)
 
-    def edit_entry(self, subject: str) -> None:
+    def edit_entry(self, subject: str, new_subject: str=None,
+                   new_date: str=None, new_time: str=None,
+                   new_location: str=None, new_desc: str=None) -> None:
         """
         Edit existing calendar entry.
 
-        subject..... Subject that identifies the entry we want to edit.
+        subject....... Subject that identifies the entry we want to edit.
+        new_subject... Optional new subject name for the entry event.
+        new_date...... Optional new date for the entry event.
+        new_time...... Optional new time for the entry event.
+        new_location.. Optional new location for the entry event.
+        new_desc...... Optional new description for the entry event.
         """
-        entries: dict
-        entry: dict
-        entry_id: str
+        entry: dict = None
+        entry_id: str = None
+        target: str
         for day in self.days.find():
             for index, entries_object in enumerate(day.values()):
                 if index == 0: continue
                 for calendar_entries in entries_object.values():
-                    for entry_id, entry_body in calendar_entries.items():
-                        for field in entry_body:
-                            if field["subject"] == subject:
-                                print(subject, "found.")
-                                break
+                    for cal_entry_id, cal_entry_body in calendar_entries.items():
+                        entry_id = cal_entry_id
+                        entry = cal_entry_body
+                        if cal_entry_body["subject"] == subject:
+                            print(subject, "found.")
+                            print(f"id for found entry: {entry_id}")
+                            print(f"body for found entry: {entry}")
+                            break
 
     def get_entry(self) -> None:
         """Get existing calendar entry."""
@@ -169,5 +181,5 @@ if __name__ == "__main__":
     date: str = "November 12 2021"
     time: str = "13.00-14.00"
 
-    # calendar.add_entry(subject, owner, info=info)
+    # calendar.add_entry(subject, owner, date, time, info=info)
     calendar.edit_entry(subject)

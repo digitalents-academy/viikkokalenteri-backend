@@ -33,6 +33,18 @@ class Calendar:
         for today in self.days.find():
             return eval(self.date) in today.keys()
 
+    def _update_today(self, entry: dict) -> None:
+        """
+        Helper function for updating today -document.
+
+        entry.... The document to make the update to.
+        """
+        self.days.update_one({}, [entry])
+
+    def _create_today(self) -> None:
+        """Helper function for creating today -document."""
+        self.days.insert_one({eval(self.date): {"entries": {}}})
+
     def add_entry(self, subject: str, owner: str, date: str, time: str,
                   location: str=None, info: str=None) -> None:
         """

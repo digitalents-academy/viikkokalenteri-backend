@@ -30,8 +30,12 @@ class Calendar:
         Hepler function for add_entry() to check
         if document for the current day exists.
         """
-        for today in self.days.find():
-            return eval(self.date) in today.keys()
+        today_found: bool = False
+        for document in self.days.find():
+            if eval(self.date) in document:
+                today_found = True
+                break
+        return True if today_found else False
 
     def _update_today(self, entry: dict) -> None:
         """

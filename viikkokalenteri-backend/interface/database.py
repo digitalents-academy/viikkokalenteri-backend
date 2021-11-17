@@ -73,32 +73,32 @@ class Calendar:
         today_exists: bool = self._check_if_today()
 
         # Calendar entry body.
-        self.entry_body: dict = {}
-        self.entry_body["subject"] = subject
-        self.entry_body["owner"] = owner
-        self.entry_body["event_date"] = date
-        self.entry_body["event_time"] = time
-        self.entry_body["event_location"] = location
-        self.entry_body["date_created"] = eval(self.date)
-        self.entry_body["time_created"] = eval(self.time)
-        self.entry_body["description"] = info
+        entry_body: dict = {}
+        entry_body["subject"] = subject
+        entry_body["owner"] = owner
+        entry_body["event_date"] = date
+        entry_body["event_time"] = time
+        entry_body["event_location"] = location
+        entry_body["date_created"] = eval(self.date)
+        entry_body["time_created"] = eval(self.time)
+        entry_body["description"] = info
 
         # Calendar entry.
-        self.date_entry: dict = {
+        date_entry: dict = {
                 "$set": {
                     eval(self.date): {
                         "entries": {
-                            token_hex(20): self.entry_body
+                            token_hex(20): entry_body
                             }
                         }
                     }
                 }
 
         if today_exists:
-            self._update_today(self.date_entry)
+            self._update_today(date_entry)
         else:
             self._create_today()
-            self._update_today(self.date_entry)
+            self._update_today(date_entry)
 
     def edit_entry(self, subject: str, new_subject: str=None,
                    new_date: str=None, new_time: str=None,

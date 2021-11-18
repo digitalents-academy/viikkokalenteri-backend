@@ -89,14 +89,8 @@ class Calendar:
 
         # Calendar entry.
         date_entry: dict = {
-                "$set": {
-                    eval(self.date): {
-                        "entries": {
-                            token_hex(20): entry_body
-                            }
-                        }
-                    }
-                }
+            "$set": {eval(self.date): {"entries": {token_hex(20): entry_body}}}
+        }
 
         if today_exists:
             self._update_today(date_entry)

@@ -27,3 +27,22 @@ document represents a day. Each day -document consists of the following:
     }
 }
 ```
+
+### Datatypes
+This section describes the datatypes of the
+values from the representation shown above.
+
+| Key             | Value         | Type      |
+| --------------: | :-----------: | :-------- |
+| \_id            | id            | ObjectId  |
+| date            | Object        | Object    |
+| entries         | Object        | Object    |
+| entry           | Object        | Object    |
+| subject         | Subject       | String    |
+| owner           | Owner         | String    |
+| event\_date     | Date          | String    |
+| event\_time     | Time          | String    |
+| event\_location | Location      | String    |
+| date\_created   | Created       | String    |
+| time\_created   | Time created  | String    |
+| description     | Description   | String    |

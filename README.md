@@ -10,7 +10,7 @@ document represents a day. Each day -document consists of the following:
 ### Visual representation
 ``` json
 {
-    "_id": <day id>,
+    "_id": "<day id>",
     "<date>": {
         "entries": {
             "<entry id>": {

@@ -5,11 +5,11 @@ Date: November 8, 2021
 """
 
 from datetime import datetime
-from secrets import token_hex
 from getpass import getuser
+from secrets import token_hex
+from sys import exit
 
 from pymongo import MongoClient
-from sys import exit
 from ruamel.yaml import YAML
 
 

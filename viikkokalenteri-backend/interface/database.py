@@ -96,11 +96,9 @@ class Calendar:
             "$set": {eval(self.date): {"entries": {token_hex(20): entry_body}}}
         }
 
-        if today_exists:
-            self._update_today(date_entry)
-        else:
+        if not today_exists:
             self._create_today()
-            self._update_today(date_entry)
+        self._update_today(date_entry)
 
     def _get_entries(self) -> dict:
         """

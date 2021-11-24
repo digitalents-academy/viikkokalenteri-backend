@@ -47,8 +47,6 @@ class Calendar:
 
         entry.... The document to make the update to.
         """
-        # First param: the document to update (now this would update the first document only).
-        # Second param: what to actually update.
         for document in self.days.find():
             if eval(self.date) in document:
                 self.days.update_one({eval(self.date): document}, [entry])

@@ -46,3 +46,8 @@ values from the representation shown above.
 | date\_created   | Created       | String    |
 | time\_created   | Time created  | String    |
 | description     | Description   | String    |
+
+## Authors
+- [Niklas Larsson](https://github.com/nikkelarsson)
+- [Aki Sartolahti](https://github.com/donqnr)
+

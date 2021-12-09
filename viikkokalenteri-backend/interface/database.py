@@ -23,7 +23,7 @@ class Calendar:
         self.client: object = MongoClient(self.CONNECTION)
         self.database: object = self.client["viikkokalenteri"]
         self.days: object = self.database["days"]
-        self.date: str = "datetime.now().strftime(\"%A %-d %B\")"
+        self.date: str = "datetime.now().strftime(\"%A %d %B\")" # This line may cause compatibility issues with some systems
         self.time: str = "datetime.now().strftime(\"%H:%M:%S\")"
 
     def _check_if_today(self) -> bool:
@@ -118,6 +118,8 @@ class Calendar:
                 for entries in value.values():
                     for key, body in entries.items():
                         yield {key: body}
+
+        
 
     def edit_entry(self, entry_id: str, new_subject: str=None,
                    new_date: str=None, new_time: str=None,

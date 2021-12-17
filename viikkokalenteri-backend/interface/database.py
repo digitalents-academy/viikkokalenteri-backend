@@ -81,7 +81,7 @@ class Calendar:
         today_exists: bool = self._check_if_today()
 
         # Calendar entry body.
-        entry_body: dict = {}
+        """ entry_body: dict = {}
         entry_body["subject"] = subject
         entry_body["owner"] = owner
         entry_body["event_date"] = date
@@ -89,11 +89,29 @@ class Calendar:
         entry_body["event_location"] = location
         entry_body["date_created"] = eval(self.date)
         entry_body["time_created"] = eval(self.time)
-        entry_body["description"] = info
+        entry_body["description"] = info """
+
+        entry_body = [subject,
+                    owner,
+                    date,
+                    time,
+                    location,
+                    eval(self.date),
+                    eval(self.time),
+                    info]
+
+        entry_subject: str = subject
+        entry_owner: str = owner
+        entry_event_date: str = date
+        entry_event_tine: str = time
+        entry_event_location: str = location
+        entry_date_created: str = eval(self.date)
+        entry_time_created: str = eval(self.time)
+        entry_description: str = info
 
         # Calendar entry.
         date_entry: dict = {
-            "$set": {eval(self.date): {"entries": {token_hex(20): entry_body}}}
+            "$push": {eval(self.date): {"entries": {token_hex(20): entry_body}}}
         }
 
         if not today_exists:
@@ -205,7 +223,7 @@ if __name__ == "__main__":
     time: str = "13.00-14.00"
     id_: str = "1937b31b6b708b3aed07ce431eefdd5004fbd89e"
 
-    # calendar.add_entry(subject, owner, date, time, info=info)
+    calendar.add_entry(subject, owner, date, time, info=info)
     # calendar.edit_entry(subject, id_)
     # for idx, i in enumerate(calendar._get_entries()):
     #     print(i)
